@@ -28,9 +28,11 @@ pipeline {
             }
             steps {
                 withCredentials([string(credentialsId: 'sonarqube-1', variable: 'SONAR_AUTH_TOKEN')]) {
-                    withEnv(['JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64', 'PATH+JAVA=/usr/lib/jvm/java-17-openjdk-amd64/bin']) {
-                        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
-                    }
+                    sh '''
+                        export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+                        cd java-maven-sonar-argocd-helm-k8s/spring-boot-app
+                        mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}
+                    '''
                 }
             }
         }
