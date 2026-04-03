@@ -76,16 +76,14 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                     sh '''
-                        git config --global --add safe.directory ${WORKSPACE}
                         git config user.email "84rameshjaat@gmail.com"
                         git config user.name "Ramesh Kharb"
-                        BUILD_NUMBER=${BUILD_NUMBER}
-                        git checkout main
-                        git pull origin main
+                        git clone https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git
+                        cd ${GIT_REPO_NAME}
                         sed -i "s|image: rameshk1984/ultimate-cicd:.*|image: rameshk1984/ultimate-cicd:${BUILD_NUMBER}|g" spring-boot-app-manifests/deployment.yml
                         git add spring-boot-app-manifests/deployment.yml
                         git commit -m "Update deployment image to version ${BUILD_NUMBER} [ci skip]"
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                        git push origin main
                     '''
                 }
             }
