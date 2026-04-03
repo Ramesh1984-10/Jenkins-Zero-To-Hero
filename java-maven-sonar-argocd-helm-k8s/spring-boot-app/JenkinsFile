@@ -61,13 +61,13 @@ pipeline {
                 }
             }
         }
-        
+        /*
         stage('Approval for Deployment') {
             steps {
                 input message: 'Approve deployment to production?', ok: 'Deploy'
             }
         }
-
+        */
         stage('Update Deployment File') {
             environment {
                 GIT_REPO_NAME = "ansible-zero-to-hero"
