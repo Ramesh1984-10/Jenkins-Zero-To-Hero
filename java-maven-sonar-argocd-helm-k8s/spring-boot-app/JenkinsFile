@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-
+        /*
         stage('Checkout') {
             steps {
                  sh 'echo passed'
@@ -61,7 +61,7 @@ pipeline {
                 }
             }
         }
-        /*
+        
         stage('Approval for Deployment') {
             steps {
                 input message: 'Approve deployment to production?', ok: 'Deploy'
@@ -76,10 +76,10 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                     sh '''
-                        git config user.email "84rameshjaat@gmail.com"
-                        git config user.name "Ramesh Kharb"
                         git clone https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git
                         cd ${GIT_REPO_NAME}
+                        git config user.email "84rameshjaat@gmail.com"
+                        git config user.name "Ramesh Kharb"
                         sed -i "s|image: rameshk1984/ultimate-cicd:.*|image: rameshk1984/ultimate-cicd:${BUILD_NUMBER}|g" spring-boot-app-manifests/deployment.yml
                         git add spring-boot-app-manifests/deployment.yml
                         git commit -m "Update deployment image to version ${BUILD_NUMBER} [ci skip]"
