@@ -75,6 +75,7 @@ pipeline {
                         git config user.name "Ramesh Kharb"
                         BUILD_NUMBER=${BUILD_NUMBER}
                         git checkout main
+                        git pull origin main
                         sed -i "s|image: rameshk1984/ultimate-cicd:.*|image: rameshk1984/ultimate-cicd:${BUILD_NUMBER}|g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                         #sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                         git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
