@@ -7,15 +7,11 @@ pipeline {
     }
 
     stages {
-        
+
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[url: 'https://github.com/Ramesh1984-10/Jenkins-Zero-To-Hero.git']],
-                    poll: false,
-                    changelog: false
-                ])
+                 sh 'echo passed'
+                 // git branch: 'main', url: 'https://github.com/Ramesh1984-10/Jenkins-Zero-To-Hero.git'
             }
         }
 
